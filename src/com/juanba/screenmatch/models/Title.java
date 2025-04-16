@@ -8,6 +8,12 @@ public class Title {
     private double sumOfTheEvaluations;
     private int totalOfTheEvaluation;
 
+    // Constructor
+    public Title(String name, int launchDate) {
+        this.name = name;
+        this.launchDate = launchDate;
+    }
+
     //Getters and setters
     public String getName() {
         return name;
