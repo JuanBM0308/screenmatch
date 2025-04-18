@@ -1,6 +1,8 @@
 package com.juanba.screenmatch.models;
 
-public class Title {
+import java.util.Collections;
+
+public class Title implements Comparable<Title> {
     private String name;
     private int launchDate;
     private int durationInMinutes;
@@ -65,5 +67,11 @@ public class Title {
         System.out.println("Fecha de lanzamiento: " + launchDate);
         System.out.println("Duración del titulio: " + getDurationInMinutes()  + " minutos");
         System.out.println("Esta incluida en tu plan: " + includedInThePlan);
+    }
+
+    // Comparar titulos
+    @Override
+    public int compareTo(Title otherTitle) {
+        return this.getName().compareTo(otherTitle.getName());
     }
 }

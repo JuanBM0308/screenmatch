@@ -1,3 +1,5 @@
+package com.juanba.screenmatch.main;
+
 import com.juanba.screenmatch.caculates.FilterRecommendations;
 import com.juanba.screenmatch.caculates.TimeCalculator;
 import com.juanba.screenmatch.models.Episode;
@@ -25,7 +27,7 @@ public class Main {
         Serie mySerie = new Serie("Avatar: The last airbender", 2005);
         mySerie.setSeason(4);
         mySerie.setEpisodePerSeason(20);
-        mySerie.setMinuitesPerEpisode(30);
+        mySerie.setMinutesPerEpisode(30);
         mySerie.setIncludedInThePlan(true);
 
         System.out.println();

@@ -3,19 +3,19 @@ package com.juanba.screenmatch.models;
 public class Serie extends Title {
     private int season;
     private int episodePerSeason;
-    private int minuitesPerEpisode;
+    private int minutesPerEpisode;
 
     // Constructor
     public Serie(String name, int launchDate) {
         super(name, launchDate);
     }
 
-    public int getMinuitesPerEpisode() {
-        return minuitesPerEpisode;
+    public int getMinutesPerEpisode() {
+        return minutesPerEpisode;
     }
 
-    public void setMinuitesPerEpisode(int minuitesPerEpisode) {
-        this.minuitesPerEpisode = minuitesPerEpisode;
+    public void setMinutesPerEpisode(int minuitesPerEpisode) {
+        this.minutesPerEpisode = minuitesPerEpisode;
     }
 
     public int getEpisodePerSeason() {
@@ -36,6 +36,11 @@ public class Serie extends Title {
 
     @Override
     public int getDurationInMinutes() {
-        return season * episodePerSeason * minuitesPerEpisode;
+        return season * episodePerSeason * minutesPerEpisode;
+    }
+
+    @Override
+    public String toString() {
+        return "Serie: " + this.getName() + " (" + this.getLaunchDate() + ")";
     }
 }
