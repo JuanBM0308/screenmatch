@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainWhithLists {
+public class MainWithLists {
     public static void main(String[] args) {
         Movie myMovie = new Movie("Río", 2011);
         myMovie.evaluates(8.2);
