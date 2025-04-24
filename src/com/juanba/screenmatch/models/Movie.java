@@ -25,6 +25,8 @@ public class Movie extends Title implements Classification {
 
     @Override
     public String toString() {
-        return "Pelicula: " + this.getName() + " (" + this.getLaunchDate() + ")";
+        return "\nPelicula: " + this.getName() +
+                "\nFecha de lanzamiento: " + this.getLaunchDate() +
+                "\nDuración (Minutes): " + this.getDurationInMinutes();
     }
 }

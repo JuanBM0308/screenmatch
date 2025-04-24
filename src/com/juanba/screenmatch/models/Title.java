@@ -1,10 +1,16 @@
 package com.juanba.screenmatch.models;
 
-import java.util.Collections;
+
+import com.google.gson.annotations.SerializedName;
+import com.juanba.screenmatch.exceptions.MovieDurationConversionErrorException;
 
 public class Title implements Comparable<Title> {
+    @SerializedName("Title")
     private String name;
+
+    @SerializedName("Year")
     private int launchDate;
+
     private int durationInMinutes;
     private boolean includedInThePlan;
     private double sumOfTheEvaluations;
@@ -14,6 +20,18 @@ public class Title implements Comparable<Title> {
     public Title(String name, int launchDate) {
         this.name = name;
         this.launchDate = launchDate;
+    }
+
+    // Constructor especial para recibir datos del DTO
+    public Title(TitleOmdb myTitleOmdb) {
+        this.name = myTitleOmdb.title();
+        this.launchDate = Integer.valueOf(myTitleOmdb.year());
+        if (myTitleOmdb.runtime().contains("N/A")) {
+            throw new MovieDurationConversionErrorException("\n*-------------------------------------------------*" +
+                    "\n| No se logro convertir la duracion. Causa -> N/A |\n" +
+                    "*-------------------------------------------------*\n");
+        }
+        this.durationInMinutes = Integer.valueOf(myTitleOmdb.runtime().substring(0, 3).replace(" ", ""));
     }
 
     //Getters and setters
@@ -73,5 +91,12 @@ public class Title implements Comparable<Title> {
     @Override
     public int compareTo(Title otherTitle) {
         return this.getName().compareTo(otherTitle.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "\nNombre: " + this.getName() +
+                "\nFecha de lanzamiento: " + this.getLaunchDate() +
+                "\nDuración en minutos: " + this.getDurationInMinutes();
     }
 }
