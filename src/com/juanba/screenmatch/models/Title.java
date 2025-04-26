@@ -5,12 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import com.juanba.screenmatch.exceptions.MovieDurationConversionErrorException;
 
 public class Title implements Comparable<Title> {
-    @SerializedName("Title")
     private String name;
-
-    @SerializedName("Year")
     private int launchDate;
-
     private int durationInMinutes;
     private boolean includedInThePlan;
     private double sumOfTheEvaluations;
@@ -95,8 +91,8 @@ public class Title implements Comparable<Title> {
 
     @Override
     public String toString() {
-        return "\nNombre: " + this.getName() +
-                "\nFecha de lanzamiento: " + this.getLaunchDate() +
-                "\nDuración en minutos: " + this.getDurationInMinutes();
+        return "{\n   Nombre: " + this.getName() +
+                "\n   Fecha de lanzamiento: " + this.getLaunchDate() +
+                "\n   Duración en minutos: " + this.getDurationInMinutes() + "\n}\n";
     }
 }
