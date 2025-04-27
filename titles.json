@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Matrix",
+    "LaunchDate": 1993,
+    "DurationInMinutes": 60,
+    "IncludedInThePlan": false,
+    "SumOfTheEvaluations": 0.0,
+    "TotalOfTheEvaluation": 0
+  },
+  {
+    "Name": "Avatar",
+    "LaunchDate": 2009,
+    "DurationInMinutes": 162,
+    "IncludedInThePlan": false,
+    "SumOfTheEvaluations": 0.0,
+    "TotalOfTheEvaluation": 0
+  },
+  {
+    "Name": "Mamá tómate la sopa",
+    "LaunchDate": 2011,
+    "DurationInMinutes": 96,
+    "IncludedInThePlan": false,
+    "SumOfTheEvaluations": 0.0,
+    "TotalOfTheEvaluation": 0
+  }
+]

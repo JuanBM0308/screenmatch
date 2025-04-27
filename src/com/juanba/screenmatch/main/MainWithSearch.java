@@ -4,9 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.juanba.screenmatch.exceptions.MovieDurationConversionErrorException;
-import com.juanba.screenmatch.models.EncodeMovieRequest;
-import com.juanba.screenmatch.models.Title;
-import com.juanba.screenmatch.models.TitleOmdb;
+import com.juanba.screenmatch.models.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,12 +25,6 @@ public class MainWithSearch {
         Scanner scanner = new Scanner(System.in);
         List<Title> titles = new ArrayList<>();
 
-        // Leer y escribir json
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setPrettyPrinting()
-                .create();
-
         while (true) {
             EncodeMovieRequest requestMovie = new EncodeMovieRequest("http://www.omdbapi.com/?apikey=", "de155861");
             System.out.println("Digite la pelicula a buscar:");
@@ -47,34 +39,20 @@ public class MainWithSearch {
             requestMovie.encodeMovieRequest();
 
             // Construir URL
-            System.out.println(requestMovie.buildUrl());
+            System.out.println(requestMovie.buildUrl() + "\n");
 
             try {
-                // Cliente
-                HttpClient client = HttpClient.newHttpClient();
+                OmdbApiClient omdbApiClient = new OmdbApiClient(requestMovie.buildUrl());
 
-                // Peticcion
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(requestMovie.buildUrl()))
-                        .build();
-
-                // Respuesta
-                HttpResponse<String> response = client
-                        .send(request, HttpResponse.BodyHandlers.ofString());
-
-                System.out.println(response.body());
+                System.out.println("Data en crudo (fetching): " + omdbApiClient.fetchData());
 
                 // json de las peliculas traidas de la api
-                String jsonOBDm = response.body();
-
-                TitleOmdb myTitleOmdb = gson.fromJson(jsonOBDm, TitleOmdb.class);
-                System.out.println(myTitleOmdb);
+                GsonProcessor processGson = new GsonProcessor(omdbApiClient.fetchData());
 
                 // Mandar titulo de omdb a titulo personalizado
-                Title myMovie = new Title(myTitleOmdb);
-                System.out.println("\nTitulo json convertido a objeto: " + myMovie);
+                System.out.println(processGson.passJsonToObject());
 
-                titles.add(myMovie);
+                titles.add(processGson.passJsonToObject());
             } catch (NumberFormatException e) {
                 System.out.println("\n--> Error inesperado <--");
                 System.out.println(e.getMessage());
@@ -89,13 +67,10 @@ public class MainWithSearch {
             }
         }
 
-        System.out.println(titles);
-
         // Escribir documetos con java
-        FileWriter writer = new FileWriter("titles.json");
-        writer.write(gson.toJson(titles));
-        writer.close();
-        System.out.println("Fin de la ejecucion");
+        JsonWriter writer = new JsonWriter();
+        writer.writeTitlesToFile(titles);
         scanner.close();
+        System.out.println("Fin de la ejecucion");
     }
 }
